@@ -27,7 +27,11 @@ This study is of particular interest for two reasons. First, the control problem
 itself is non-trivial due to the space complexity. And secondly, a successful
 reproduction strengthens the applicability of prior research.
 
-## Model
+## Model/Problem
+
+The environment and problem is well-defined from [OpenAI][BipedalWalker-v2]:
+
+![Demo](assets/demo.gif)
 
 > Reward is given for moving forward, total 300+ points up to the far end. If
 the robot falls, it gets -100. Applying motor torque costs a small amount of
@@ -36,7 +40,62 @@ speed, angular velocity, horizontal speed, vertical speed, position of joints
 and joints angular speed, legs contact with ground, and 10 LIDAR rangefinder
 measurements. There's no coordinates in the state vector.
 
-## Algorithm
+The problem is posed as a finite-horizon, non-deterministic Markov decision
+process (**MDP**), and is as interesting as it is difficult. The high
+dimensionality and continuous ranges of inputs (space) and outputs (actions)
+poses especially challenging examples of the lemmas of delayed reward, credit
+assignment, and exploration vs. exploitation. Moreover, while the MDP might
+guarantee convergence to a deterministic optimal policy in the _limit_, the
+dimensionality and continuous range poses the challenge that it cannot be
+enumerated in finite space complexity.
+
+A successful learner will "solve" the reinforcement learning problem by
+achieving an average reward of **300** over **100** consecutive trials. The
+scope of the study will both optimize and examine the effect of hyperparameters,
+_e.g. learning rates, discount, etc._, on performance. Lastly, a holistic
+comparison of both the reinforcement learner and evolutionary learner will be
+provided.
+
+## Algorithms
+
+The chief algorithms to be employed include a synthesis of **DQN** and **DDPG**
+in an Actor-Critic ([Konda 2000][2]) architecture with batch normalization
+([Ioffe][1]), and an application of an evolutionary strategy (**ES**) for
+optimization as a surrogate for traditional reinforcement learning.
+
+The reinforcement learning algorithm is well-defined in ([Lillicrap 2016][3]),
+and borrows extensively from ([Mnih 2013][4]), using the concepts of _experience
+replay_ and separate _target networks_:
+
+```
+randomly initialize critic network Q and actor μ
+initialize target network Q' and μ'
+initialize replay buffer R
+for episode = 1, M do:
+  initialize a random process N for action exploration
+  receive initial observation state s1
+  for t = 1, T do:
+    select action a_t = μ + N_t according to current policy
+    execute action a_t and observe reward r_t and new state s_t+1
+    store experience in replay buffer
+    sample a random minibatch of N transitions from R
+    update target values according to discount, γ
+    update the actor policy using the sampled policy gradient
+    update the target networks
+```
+
+The evolutionary strategy (**ES**) proposed in ([Salimans 2017][6]), in brief,
+applies randomized, "black box" optimization as an alternative to traditional
+reinforcement learning:
+
+```
+input: learning rate α, noise standard deviation σ, initial policy parameters θ_0
+for episode = 1, M do:
+  for t = 1, T do:
+    sample ϵ_1 ... ϵ_n
+    compute returns
+    update policy parameters, θ_t+1
+```
 
 ## Benchmarks
 
