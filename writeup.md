@@ -97,21 +97,28 @@ for episode = 1, M do:
     update policy parameters, θ_t+1
 ```
 
-## Benchmarks
+## Benchmarks and Evaluation Metrics
 
-## Evaluation Metrics
+While [OpenAI][BipedalWalker-v2] provides clear and historical benchmarks for
+performance, the comparative nature of this study implies the comparison between
+the reinforcement learning and evolutionary approaches. The study will attempt
+an optimized, "best-effort" solution for both strategies, and compare
+performance across 3 quantifiable metrics:
+
+- Episodes taken to _solve_ the problem as posed from [OpenAI][BipedalWalker-v2]
+- Time taken to _solve_
+- Average reward after training
 
 ## Project Design
 
+The algorithms will be implemented in **Python**. The reinforcement learning
+environment is established and provided from the [`gym`][gym] library, and will
+be imported as the primary interface used by all learning agents.
+[Keras][keras], backed by [TensorFlow][tf], and [scikit-learn][sklearn] will be
+used as the primary machine learning libraries. Lastly, all graphics and results
+will be plotted using [`matplotlib`][matplotlib].
+
 ## References
-
-### Libraries and Websites
-
-[Keras][Keras]
-
-[OpenAI Gym, BipedalWalker-v2][BipedalWalker-v2]
-
-### Papers
 
 [Ioffe, S., & Szegedy, C. (2015). Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift. Arxiv, 1–11.][1]
 
@@ -128,8 +135,12 @@ for episode = 1, M do:
 [Silver, D., Lever, G., Heess, N., Degris, T., Wierstra, D., & Riedmiller, M. (2014). Deterministic Policy Gradient Algorithms. Proceedings of the 31st International Conference on Machine Learning (ICML-14), 387–395.][7]
 
 <!-- Links -->
-[Keras]: https://github.com/fchollet/keras
 [BipedalWalker-v2]: https://gym.openai.com/envs/BipedalWalker-v2
+[gym]:              https://github.com/openai/gym
+[keras]:            https://github.com/fchollet/keras
+[matplotlib]:       https://matplotlib.org/
+[sklearn]:          http://scikit-learn.org/stable/
+[tf]:               https://www.tensorflow.org/
 
 [1]: https://arxiv.org/abs/1502.03167
 [2]: http://web.mit.edu/jnt/www/Papers/J094-03-kon-actors.pdf
