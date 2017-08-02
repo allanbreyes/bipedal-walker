@@ -5,6 +5,28 @@ by [Allan Reyes](https://allanbreyes.github.io)
 
 ## Domain
 
+Several recent advancements in **Reinforcement Learning** have proven
+tremendously successful in scaling learning architectures beyond simple grid
+games to problems of increasing complexity. While obstacles in extending
+reinforcement learning broadly to real-world applications are enumerable, the
+focus of this study is on addressing the challenges associated with high
+dimensionality and continuous ranges of both state and action spaces.
+
+Previous work has been conducted to use Deep Q-Networks (**DQN**) as function
+approximators to address state space complexity ([Mnih 2013][5]; [Mnih 2015][4])
+and Deep Deterministic Policy Gradients (**DDPG**) to address action state space
+complexity ([Silver 2014][7]; [Lillicrap 2016][3]). Lastly, evolutionary
+algorithms have showed extraordinary promise as alternatives to traditional
+reinforcement learning paradigms ([Salimans 2017][6]). While previous studies
+have empirically demonstrated generality of these new approaches, the scope of
+this study attempts to synthesize, optimize, and compare these algorithms
+against a single, common problem: control of a bipedal walker, using [OpenAI's
+BipedalWalker-v2][BipedalWalker-v2] environment.
+
+This study is of particular interest for two reasons. First, the control problem
+itself is non-trivial due to the space complexity. And secondly, a successful
+reproduction strengthens the applicability of prior research.
+
 ## Model
 
 > Reward is given for moving forward, total 300+ points up to the far end. If
