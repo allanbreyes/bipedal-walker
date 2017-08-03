@@ -15,6 +15,7 @@ Markdown==2.6.8
 matplotlib==2.0.2
 mock==2.0.0
 numpy==1.13.1
+ostruct==2.1.2
 pbr==3.1.1
 protobuf==3.3.0
 pyglet==1.2.4
