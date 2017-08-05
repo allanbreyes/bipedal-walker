@@ -1,3 +1,4 @@
+from keras.initializers import RandomUniform
 from keras.layers.core import Dense
 from keras.models import Sequential
 from keras.optimizers import Adam
@@ -52,7 +53,11 @@ class Actor(AbstractBase):
         model.add(Dense(hidden_layers[0], input_shape=input_shape))
         for num_nodes in hidden_layers[1:]:
             model.add(Dense(num_nodes, activation=hidden_activation))
-        model.add(Dense(output_shape[0], activation=output_activation))
+        model.add(Dense(
+            output_shape[0],
+            activation=output_activation,
+            bias_initializer=RandomUniform(minval=-0.003, maxval=0.003)
+        ))
         model.compile(optimizer=Adam(lr=alpha), loss=loss)
 
         self.model = model
@@ -75,7 +80,11 @@ class Critic(AbstractBase):
         model.add(Dense(hidden_layers[0], input_shape=input_shape, kernel_regularizer=l2(weight_decay)))
         for num_nodes in hidden_layers[1:]:
             model.add(Dense(num_nodes, activation=hidden_activation, kernel_regularizer=l2(weight_decay)))
-        model.add(Dense(output_shape[0], activation=output_activation, kernel_regularizer=l2(weight_decay)))
+        model.add(Dense(
+            output_shape[0],
+            activation=output_activation,
+            bias_initializer=RandomUniform(minval=-0.003, maxval=0.003)
+        ))
         model.compile(optimizer=Adam(lr=alpha), loss=loss)
 
         self.model = model
